@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NC Variedades | Ropa para tu estilo</title>
+    <meta name="description" content="Descubrí prendas para tu estilo. Explorá nuestro catálogo de ropa.">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- ENCABEZADO -->
+    <header class="header">
+        <div class="container">
+
+            <span class="logo">
+    NC VARIEDADES
+</span>
+
+            <nav class="navigation">
+                <a href="index.html" aria-current="page">
+                    <span class="nav-icon">⌂</span>
+                    Inicio
+                </a>
+
+                <a href="catalogo.html">
+                    <span class="nav-icon">▣</span>
+                    Catálogo
+                </a>
+
+                <a href="nosotros.html">
+                    <span class="nav-icon">ⓘ</span>
+                    Nosotros
+                </a>
+
+                <a href="contacto.html">
+                    <span class="nav-icon">✉</span>
+                    Contacto
+                </a>
+            </nav>
+
+        </div>
+    </header>
+
+    <!-- PORTADA PRINCIPAL -->
+    <main>
+        <section id="inicio" class="hero">
+            <div class="container">
+
+                <p class="eyebrow">TU ESTILO, TU ELECCIÓN</p>
+
+                <h1>Encontrá tu próxima prenda favorita.</h1>
+
+                <p class="hero-description">
+                    Explorá nuestra selección de ropa para diferentes
+                    estilos, ocasiones y gustos.
+                </p>
+
+
+            </div>
+        </section>
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="footer">
+        <div class="container">
+            <p>
+                &copy; <span id="current-year"></span>
+                NC VARIEDADES. Todos los derechos reservados.
+            </p>
+        </div>
+    </footer>
+
+    <!-- AÑO AUTOMÁTICO -->
+    <script>
+        document.getElementById("current-year").textContent =
+            new Date().getFullYear();
+    </script>
+
+</body>
+</html>

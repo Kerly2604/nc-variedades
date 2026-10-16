@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Catálogo | NC Variedades</title>
+    <meta name="description" content="Explorá las prendas disponibles en NC Variedades.">
+
+    <link rel="stylesheet" href="styles.css">
+
+    <script src="products.js" defer></script>
+    <script src="app.js" defer></script>
+</head>
+<body>
+
+    <!-- ENCABEZADO -->
+    <header class="header">
+        <div class="container">
+
+           <span class="logo">
+    NC VARIEDADES
+</span>
+
+            <nav class="navigation">
+                <a href="index.html">
+                    <span class="nav-icon">⌂</span>
+                    Inicio
+                </a>
+
+                <a href="catalogo.html" aria-current="page">
+                    <span class="nav-icon">▣</span>
+                    Catálogo
+                </a>
+
+                <a href="nosotros.html">
+                    <span class="nav-icon">ⓘ</span>
+                    Nosotros
+                </a>
+
+                <a href="contacto.html">
+                    <span class="nav-icon">✉</span>
+                    Contacto
+                </a>
+            </nav>
+
+        </div>
+    </header>
+
+    <!-- CATÁLOGO -->
+    <main>
+        <section class="catalog-section">
+            <div class="container">
+
+                <h1>Nuestro catálogo</h1>
+
+                <p class="section-description">
+                    Encontrá prendas para tu estilo.
+                    Consultá tallas y disponibilidad.
+                </p>
+
+                <!-- FILTROS DE CATEGORÍA -->
+                <div id="categories" class="categories">
+
+                    <button class="category-button active"
+                            data-category="todos">
+                        Todo
+                    </button>
+
+                    <button class="category-button"
+                            data-category="hombre">
+                        Hombre
+                    </button>
+
+                    <button class="category-button"
+                            data-category="mujer">
+                        Mujer
+                    </button>
+
+                    <button class="category-button"
+                            data-category="unisex">
+                        Unisex
+                    </button>
+
+                </div>
+
+                <!-- AQUÍ SE CARGAN LAS PRENDAS -->
+                <div id="product-list" class="product-grid">
+                    <!-- JavaScript mostrará las prendas aquí. -->
+                </div>
+
+                <p id="empty-message" hidden>
+                    No hay prendas disponibles en esta categoría.
+                </p>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="footer">
+        <div class="container">
+            <p>
+                &copy; <span id="current-year"></span>
+                NC VARIEDADES. Todos los derechos reservados.
+            </p>
+        </div>
+    </footer>
+
+    <!-- AÑO AUTOMÁTICO -->
+    <script>
+        document.getElementById("current-year").textContent =
+            new Date().getFullYear();
+    </script>
+
+</body>
+</html>
