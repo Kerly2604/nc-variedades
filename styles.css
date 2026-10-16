@@ -275,44 +275,53 @@ button {
     background-color: #444444;
 }
 
+/* BOTONES DEL CATÁLOGO: MISMO ESTILO QUE CONTACTO */
 
-/* Botones de WhatsApp e Instagram en cada producto */
 .product-buttons {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin-top: 12px;
+    gap: 10px;
+    margin: 28px 0;
 }
 
 .product-buttons .product-button {
-    display: flex;
-    align-items: center;
+    display: inline-flex;
     justify-content: center;
-    padding: 10px 5px;
+    align-items: center;
+    gap: 7px;
+    width: 100%;
+    min-width: 0;
+    padding: 12px 8px;
+    background-color: #171717;
+    color: var(--blanco);
+    border: 1px solid #171717;
+    border-radius: 8px;
     font-size: 0.85rem;
     font-weight: 700;
-    border-radius: 6px;
-    border: 1px solid transparent;
-    transition: transform 0.2s ease, opacity 0.2s ease;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+    transition: transform 0.25s ease,
+                box-shadow 0.25s ease,
+                background-color 0.25s ease;
 }
 
 .product-buttons .product-button:hover {
-    transform: translateY(-2px);
-    opacity: 0.9;
+    transform: translateY(-3px);
+    background-color: #333333;
+    box-shadow: 0 7px 16px rgba(0, 0, 0, 0.20);
 }
 
-.product-buttons .whatsapp-button {
-    background-color: #25D366;
-    color: #FFFFFF;
-    border-color: #25D366;
+.product-buttons .whatsapp-button::before {
+    content: "●";
+    color: #25D366;
+    font-size: 1.15rem;
 }
 
-.product-buttons .instagram-button {
-    background-color: #E1306C;
-    color: #FFFFFF;
-    border-color: #E1306C;
+.product-buttons .instagram-button::before {
+    content: "◎";
+    color: #E1306C;
+    font-size: 1.15rem;
 }
-
 
 #empty-message {
     margin-top: 24px;
