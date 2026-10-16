@@ -57,13 +57,33 @@ function renderProducts(category = "todos") {
         size.className = "product-size";
         size.textContent = `Tallas: ${product.size}`;
 
-        // Botón para ir a la página de contacto
-        const button = document.createElement("a");
-        button.className = "product-button";
-        button.textContent = "Contactar";
-        button.href = "contacto.html";
 
-        info.append(categoryText, name, price, size, button);
+        // Botones de contacto por producto
+        const buttons = document.createElement("div");
+        buttons.className = "product-buttons";
+
+        // WhatsApp: número provisional para cambiar después
+        const whatsapp = document.createElement("a");
+        whatsapp.className = "product-button whatsapp-button";
+        whatsapp.textContent = "WhatsApp";
+        const whatsappNumber = "505XXXXXXXX";
+        const message = `Hola, estoy interesado/a en ${product.name} de NC Variedades. ¿Está disponible?`;
+        whatsapp.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+        whatsapp.target = "_blank";
+        whatsapp.rel = "noopener noreferrer";
+
+        // Instagram: usuario provisional para cambiar después
+        const instagram = document.createElement("a");
+        instagram.className = "product-button instagram-button";
+        instagram.textContent = "Instagram";
+        const instagramUser = "MY_USER";
+        instagram.href = `https://www.instagram.com/${instagramUser}/`;
+        instagram.target = "_blank";
+        instagram.rel = "noopener noreferrer";
+
+        buttons.append(whatsapp, instagram);
+        info.append(categoryText, name, price, size, buttons);
+
         card.append(image, info);
         productList.appendChild(card);
     });

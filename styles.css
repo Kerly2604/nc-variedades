@@ -275,6 +275,45 @@ button {
     background-color: #444444;
 }
 
+
+/* Botones de WhatsApp e Instagram en cada producto */
+.product-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.product-buttons .product-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 5px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.product-buttons .product-button:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+.product-buttons .whatsapp-button {
+    background-color: #25D366;
+    color: #FFFFFF;
+    border-color: #25D366;
+}
+
+.product-buttons .instagram-button {
+    background-color: #E1306C;
+    color: #FFFFFF;
+    border-color: #E1306C;
+}
+
+
 #empty-message {
     margin-top: 24px;
     color: var(--texto-secundario);
