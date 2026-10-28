@@ -660,28 +660,41 @@ body.image-modal-open {
         flex-shrink: 0;
     }
 }
-/* Ajustes para los botones de contacto en teléfonos */
+/* Botones de contacto en teléfonos */
 @media (max-width: 600px) {
-    .contacto-buttons,
-    .contact-buttons,
-    .social-buttons {
-        width: 100%;
+    .contact-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .contact-buttons .button {
+        display: inline-flex;
+        flex: 0 1 auto;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        width: auto;
+        min-width: 0;
         max-width: 100%;
+        padding: 10px 14px;
+        font-size: 13px;
+        line-height: 1.2;
+        white-space: nowrap;
         box-sizing: border-box;
     }
 
-    .contacto-buttons a,
-    .contact-buttons a,
-    .social-buttons a,
-    .contacto-buttons button,
-    .contact-buttons button,
-    .social-buttons button {
-        max-width: 100%;
-        min-width: 0;
-        box-sizing: border-box;
-        white-space: normal;
-        overflow-wrap: anywhere;
-        text-align: center;
+    .contact-buttons .social-icon {
+        display: inline-flex;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .contact-buttons .social-icon svg {
+        width: 16px;
+        height: 16px;
     }
 }
 /* Instagram: logo rosado y texto blanco */
