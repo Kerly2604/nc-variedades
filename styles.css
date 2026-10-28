@@ -311,17 +311,14 @@ button {
     box-shadow: 0 7px 16px rgba(0, 0, 0, 0.20);
 }
 
-.product-buttons .whatsapp-button::before {
-    content: "●";
-    color: #25D366;
-    font-size: 1.15rem;
+
+/* Los logos del catálogo ahora los genera app.js con SVG */
+.product-buttons .whatsapp-button::before,
+.product-buttons .instagram-button::before {
+    content: none;
+    display: none;
 }
 
-.product-buttons .instagram-button::before {
-    content: "◎";
-    color: #E1306C;
-    font-size: 1.15rem;
-}
 
 #empty-message {
     margin-top: 24px;
@@ -636,5 +633,29 @@ body.image-modal-open {
     .image-modal-close {
         top: 10px;
         right: 12px;
+    }
+}
+/* Ajustes para los botones de contacto en teléfonos */
+@media (max-width: 600px) {
+    .contacto-buttons,
+    .contact-buttons,
+    .social-buttons {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .contacto-buttons a,
+    .contact-buttons a,
+    .social-buttons a,
+    .contacto-buttons button,
+    .contact-buttons button,
+    .social-buttons button {
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        text-align: center;
     }
 }
