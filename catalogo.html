@@ -6,10 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Catálogo | NC Variedades</title>
-    <meta name="description" content="Explorá las prendas disponibles en NC Variedades.">
+    <meta name="description" content="Explorá los productos disponibles en NC Variedades.">
 
     <link rel="stylesheet" href="styles.css">
 
+    <!-- Inventario y funcionamiento del catálogo -->
     <script src="products.js" defer></script>
     <script src="app.js" defer></script>
 </head>
@@ -19,9 +20,7 @@
     <header class="header">
         <div class="container">
 
-           <span class="logo">
-    NC VARIEDADES
-</span>
+            <span class="logo">NC VARIEDADES</span>
 
             <nav class="navigation">
                 <a href="index.html">
@@ -56,42 +55,31 @@
                 <h1>Nuestro catálogo</h1>
 
                 <p class="section-description">
-                    Encontrá prendas para tu estilo.
+                    Encontrá productos para tu estilo.
                     Consultá tallas y disponibilidad.
                 </p>
 
-                <!-- FILTROS DE CATEGORÍA -->
-                <div id="categories" class="categories">
-
-                    <button class="category-button active"
-                            data-category="todos">
-                        Todo
-                    </button>
-
-                    <button class="category-button"
-                            data-category="hombre">
-                        Hombre
-                    </button>
-
-                    <button class="category-button"
-                            data-category="mujer">
-                        Mujer
-                    </button>
-
-                    <button class="category-button"
-                            data-category="unisex">
-                        Unisex
-                    </button>
-
+                <!-- CATEGORÍAS GENERADAS AUTOMÁTICAMENTE -->
+                <div
+                    id="categories"
+                    class="categories"
+                    aria-label="Filtrar productos por categoría"
+                >
+                    <!-- app.js generará los botones aquí -->
                 </div>
 
-                <!-- AQUÍ SE CARGAN LAS PRENDAS -->
-                <div id="product-list" class="product-grid">
-                    <!-- JavaScript mostrará las prendas aquí. -->
+                <!-- PRODUCTOS DEL INVENTARIO -->
+                <div
+                    id="product-list"
+                    class="product-grid"
+                    aria-live="polite"
+                >
+                    <!-- app.js mostrará los productos aquí -->
                 </div>
 
+                <!-- MENSAJE CUANDO NO HAY PRODUCTOS -->
                 <p id="empty-message" hidden>
-                    No hay prendas disponibles en esta categoría.
+                    No hay productos disponibles en esta categoría.
                 </p>
 
             </div>
@@ -107,12 +95,6 @@
             </p>
         </div>
     </footer>
-
-    <!-- AÑO AUTOMÁTICO -->
-    <script>
-        document.getElementById("current-year").textContent =
-            new Date().getFullYear();
-    </script>
 
 </body>
 </html>
