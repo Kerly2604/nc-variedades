@@ -172,7 +172,7 @@ function createWhatsAppButton(product) {
     const message =
         `Hola, estoy interesado/a en ${product.name} de NC Variedades. ¿Está disponible?`;
 
-    if (WHATSAPP_NUMBER !== "505XXXXXXXX") {
+    if (WHATSAPP_NUMBER !== "50583873429") {
         whatsapp.href =
             `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
