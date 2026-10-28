@@ -619,20 +619,45 @@ body.image-modal-open {
     background: rgba(255, 255, 255, 0.25);
 }
 
-/* Adaptación para teléfonos */
+/* Ajustes para los botones de contacto en teléfonos */
 @media (max-width: 600px) {
-    .image-modal {
-        padding: 60px 12px 24px;
+    .contacto-buttons,
+    .contact-buttons,
+    .social-buttons,
+    .product-buttons {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
     }
 
-    .image-modal-content {
-        max-width: 96vw;
-        max-height: 74vh;
+    .contacto-buttons a,
+    .contact-buttons a,
+    .social-buttons a,
+    .product-buttons a,
+    .contacto-buttons button,
+    .contact-buttons button,
+    .social-buttons button,
+    .product-buttons button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        padding: 10px 8px;
+        box-sizing: border-box;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        text-align: center;
     }
 
-    .image-modal-close {
-        top: 10px;
-        right: 12px;
+    .contacto-buttons svg,
+    .contact-buttons svg,
+    .social-buttons svg,
+    .product-buttons svg {
+        flex-shrink: 0;
     }
 }
 /* Ajustes para los botones de contacto en teléfonos */
