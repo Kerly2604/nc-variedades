@@ -19,10 +19,15 @@
     <!-- ENCABEZADO -->
     <header class="header">
         <div class="container">
+
 <span class="logo">
-    <img src="logo/oficial.png" alt="Logo de NC Variedades" class="logo-image">
+    <img src="logo/oficial.png"
+         alt="Logo de NC Variedades"
+         class="logo-image"
+         onclick="abrirLogo()">
     <span>NC VARIEDADES</span>
 </span>
+
 
             <nav class="navigation">
                 <a href="index.html">
@@ -90,6 +95,7 @@
         </section>
     </main>
 
+
     <!-- PIE DE PÁGINA -->
     <footer class="footer">
         <div class="container">
@@ -99,6 +105,28 @@
             </p>
         </div>
     </footer>
+
+    <!-- AÑO AUTOMÁTICO -->
+    <script>
+        document.getElementById("current-year").textContent =
+            new Date().getFullYear();
+    </script>
+
+    <!-- VISOR DEL LOGO EN GRANDE -->
+    <div id="visorLogo" class="visor-logo" onclick="cerrarLogo()">
+        <span class="cerrar-logo">&times;</span>
+        <img src="logo/oficial.png" alt="Logo de NC Variedades ampliado">
+    </div>
+
+    <script>
+        function abrirLogo() {
+            document.getElementById("visorLogo").style.display = "flex";
+        }
+
+        function cerrarLogo() {
+            document.getElementById("visorLogo").style.display = "none";
+        }
+    </script>
 
 </body>
 </html>
