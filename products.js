@@ -6,7 +6,7 @@ const products = [
         category: "Bebé",
         price: 450,
         unit: "docena",
-        image: "fotos/1.jpeg",
+        image: "ropa/1.jpeg",
         available: true
     },
     {
@@ -15,7 +15,7 @@ const products = [
         category: "Bebé",
         price: 280,
         unit: "unidad",
-        image: "fotos/2.jpeg",
+        image: "ropa/2.jpeg",
         available: true
     },
     {
@@ -24,7 +24,7 @@ const products = [
         category: "Bebé",
         price: 280,
         unit: "unidad",
-       image: "fotos/3.jpeg",
+       image: "ropa/3.jpeg",
         available: true
     },
     {
@@ -33,7 +33,7 @@ const products = [
         category: "Bebé",
         price: 290,
          unit: "set",
-        image: "fotos/4.jpeg",
+        image: "ropa/4.jpeg",
         available: true
     },
     {
@@ -42,13 +42,13 @@ const products = [
         category: "Niña",
         price: 790,
         size: "12 a 24 meses",
-        image: "fotos/5.jpeg",
+        image: "ropa/5.jpeg",
         available: true
     },
     {
         id: 6,
         name: "Camiseta básica",
-        category: "unisex",
+        category: "Unisex",
         price: 280,
         size: "S, M, L, XL",
         image: "fotos/camiseta-basica.jpg",
@@ -57,7 +57,7 @@ const products = [
     {
         id: 7,
         name: "Chaqueta casual",
-        category: "hombre",
+        category: "Hombre",
         price: 850,
         size: "M, L, XL",
         image: "fotos/chaqueta.jpg",
@@ -66,7 +66,7 @@ const products = [
     {
         id: 8,
         name: "Falda casual",
-        category: "mujer",
+        category: "Mujer",
         price: 400,
         size: "S, M, L",
         image: "fotos/falda.jpg",
