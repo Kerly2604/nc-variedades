@@ -2,11 +2,11 @@
 const products = [
     {
         id: 1,
-        name: "Camiseta casual",
-        category: "hombre",
-        price: 350,
-        size: "M, L, XL",
-        image: "fotos/camiseta.jpg",
+        name: "Pañales de tela",
+        category: "Bebe",
+        price: 450,
+        unit: "docena",
+        image: "1.jpeg",
         available: true
     },
     {
