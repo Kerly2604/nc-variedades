@@ -4,9 +4,16 @@ const categories = document.getElementById("categories");
 const emptyMessage = document.getElementById("empty-message");
 const currentYear = document.getElementById("current-year");
 
-// Configuración de contacto
+// ==========================================
+// CONFIGURACIÓN DE CONTACTO
+// ==========================================
+
+// Escribí tu número con código de país, sin +, espacios ni guiones.
 const WHATSAPP_NUMBER = "505XXXXXXXX";
-const INSTAGRAM_USER = "MY_USER";
+
+// Instagram de NC VARIEDADES
+const INSTAGRAM_USER = "n.c.variedades.store";
+const INSTAGRAM_URL = `https://www.instagram.com/${INSTAGRAM_USER}/`;
 
 // Normalizar texto para comparar categorías
 function normalizeText(text) {
@@ -28,7 +35,81 @@ function formatPrice(price) {
     }).format(amount);
 }
 
-// Obtener automáticamente las categorías del inventario
+// ==========================================
+// VENTANA PARA AMPLIAR IMÁGENES
+// ==========================================
+
+const imageModal = document.createElement("div");
+imageModal.className = "image-modal";
+imageModal.setAttribute("role", "dialog");
+imageModal.setAttribute("aria-modal", "true");
+imageModal.setAttribute("aria-label", "Imagen ampliada del producto");
+imageModal.setAttribute("aria-hidden", "true");
+
+imageModal.innerHTML = `
+    <button class="image-modal-close" type="button"
+        aria-label="Cerrar imagen">&times;</button>
+    <img class="image-modal-content" src="" alt="">
+    <p class="image-modal-caption"></p>
+`;
+
+document.body.appendChild(imageModal);
+
+const modalImage = imageModal.querySelector(".image-modal-content");
+const modalCaption = imageModal.querySelector(".image-modal-caption");
+const modalClose = imageModal.querySelector(".image-modal-close");
+
+let previousFocusedElement = null;
+
+function openImageModal(src, alt) {
+    previousFocusedElement = document.activeElement;
+
+    modalImage.src = src;
+    modalImage.alt = alt;
+    modalCaption.textContent = alt;
+
+    imageModal.classList.add("is-open");
+    imageModal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("image-modal-open");
+
+    modalClose.focus();
+}
+
+function closeImageModal() {
+    if (!imageModal.classList.contains("is-open")) return;
+
+    imageModal.classList.remove("is-open");
+    imageModal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("image-modal-open");
+
+    modalImage.src = "";
+
+    if (previousFocusedElement) {
+        previousFocusedElement.focus();
+    }
+}
+
+modalClose.addEventListener("click", closeImageModal);
+
+imageModal.addEventListener("click", function (event) {
+    if (event.target === imageModal) {
+        closeImageModal();
+    }
+});
+
+document.addEventListener("keydown", function (event) {
+    if (
+        event.key === "Escape" &&
+        imageModal.classList.contains("is-open")
+    ) {
+        closeImageModal();
+    }
+});
+
+// ==========================================
+// CATEGORÍAS AUTOMÁTICAS
+// ==========================================
+
 function getCategories() {
     const availableProducts = products.filter(
         product => product.available === true
@@ -53,7 +134,6 @@ function getCategories() {
         .map(([key, name]) => ({ key, name }));
 }
 
-// Crear los botones automáticamente
 function renderCategories() {
     categories.innerHTML = "";
 
@@ -79,7 +159,10 @@ function renderCategories() {
     });
 }
 
-// Crear enlace de WhatsApp
+// ==========================================
+// BOTÓN DE WHATSAPP
+// ==========================================
+
 function createWhatsAppButton(product) {
     const whatsapp = document.createElement("a");
 
@@ -108,43 +191,67 @@ function createWhatsAppButton(product) {
     return whatsapp;
 }
 
-// Crear enlace de Instagram
+// ==========================================
+// BOTÓN DE INSTAGRAM
+// ==========================================
+
 function createInstagramButton() {
     const instagram = document.createElement("a");
 
     instagram.className = "product-button instagram-button";
     instagram.textContent = "Instagram";
-
-    if (INSTAGRAM_USER !== "MY_USER") {
-        instagram.href =
-            `https://www.instagram.com/${INSTAGRAM_USER}/`;
-
-        instagram.target = "_blank";
-        instagram.rel = "noopener noreferrer";
-    } else {
-        instagram.href = "#";
-        instagram.title = "Configurá tu usuario de Instagram en app.js";
-
-        instagram.addEventListener("click", event => {
-            event.preventDefault();
-            alert("Agregá tu usuario de Instagram en la configuración de app.js.");
-        });
-    }
+    instagram.href = INSTAGRAM_URL;
+    instagram.target = "_blank";
+    instagram.rel = "noopener noreferrer";
+    instagram.setAttribute(
+        "aria-label",
+        "Visitar Instagram de NC Variedades"
+    );
 
     return instagram;
 }
 
-// Crear una tarjeta de producto
+// ==========================================
+// TARJETA DE PRODUCTO
+// ==========================================
+
 function createProductCard(product) {
     const card = document.createElement("article");
     card.className = "product-card";
 
-    // Imagen
+    // Imagen ampliable
     const image = document.createElement("img");
-    image.className = "product-image";
+
+    image.className = "product-image product-image-zoom";
     image.src = product.image || "";
     image.alt = product.name || "Producto de NC Variedades";
     image.loading = "lazy";
+    image.tabIndex = 0;
+    image.setAttribute("role", "button");
+    image.setAttribute(
+        "aria-label",
+        `Ampliar imagen de ${product.name || "producto"}`
+    );
+
+    function tryOpenImage() {
+        if (
+            image.src &&
+            image.complete &&
+            image.naturalWidth > 0 &&
+            !image.classList.contains("image-not-found")
+        ) {
+            openImageModal(image.src, image.alt);
+        }
+    }
+
+    image.addEventListener("click", tryOpenImage);
+
+    image.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            tryOpenImage();
+        }
+    });
 
     image.onerror = function () {
         console.error(
@@ -153,26 +260,25 @@ function createProductCard(product) {
 
         this.classList.add("image-not-found");
         this.alt = `Imagen no disponible: ${product.name}`;
+        this.removeAttribute("role");
+        this.removeAttribute("tabindex");
     };
 
     // Información del producto
     const info = document.createElement("div");
     info.className = "product-info";
 
-    // Nombre
     const name = document.createElement("h3");
     name.className = "product-name";
     name.textContent = product.name || "Producto sin nombre";
 
-    // Precio
     const price = document.createElement("p");
     price.className = "product-price";
     price.textContent = formatPrice(product.price);
 
-    // IMPORTANTE: ya no mostramos la categoría debajo de la imagen
     info.append(name, price);
 
-    // Talla: solo si está definida
+    // Talla, si existe
     if (product.size && String(product.size).trim()) {
         const size = document.createElement("p");
         size.className = "product-size";
@@ -180,7 +286,7 @@ function createProductCard(product) {
         info.appendChild(size);
     }
 
-    // Unidad o presentación: solo si está definida
+    // Unidad o presentación, si existe
     if (product.unit && String(product.unit).trim()) {
         const unit = document.createElement("p");
         unit.className = "product-unit";
@@ -203,7 +309,10 @@ function createProductCard(product) {
     return card;
 }
 
-// Mostrar productos por categoría
+// ==========================================
+// MOSTRAR PRODUCTOS POR CATEGORÍA
+// ==========================================
+
 function renderProducts(category = "todos") {
     const selectedCategory = normalizeText(category);
 
@@ -228,28 +337,36 @@ function renderProducts(category = "todos") {
     });
 }
 
-// Manejar filtros y actualizar el botón activo
-categories.addEventListener("click", function (event) {
-    const button = event.target.closest("[data-category]");
+// Manejar filtros y actualizar botón activo
+if (categories) {
+    categories.addEventListener("click", function (event) {
+        const button = event.target.closest("[data-category]");
 
-    if (!button || !categories.contains(button)) return;
+        if (!button || !categories.contains(button)) return;
 
-    categories.querySelectorAll(".category-button").forEach(item => {
-        const isActive = item === button;
+        categories.querySelectorAll(".category-button").forEach(item => {
+            const isActive = item === button;
 
-        item.classList.toggle("active", isActive);
-        item.setAttribute("aria-pressed", String(isActive));
+            item.classList.toggle("active", isActive);
+            item.setAttribute("aria-pressed", String(isActive));
+        });
+
+        renderProducts(button.dataset.category);
     });
+}
 
-    renderProducts(button.dataset.category);
-});
+// ==========================================
+// AÑO AUTOMÁTICO
+// ==========================================
 
-// Año automático
 if (currentYear) {
     currentYear.textContent = new Date().getFullYear();
 }
 
-// Iniciar catálogo
+// ==========================================
+// INICIAR CATÁLOGO
+// ==========================================
+
 if (
     productList &&
     categories &&
