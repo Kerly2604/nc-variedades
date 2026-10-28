@@ -723,3 +723,23 @@ body.image-modal-open {
 .button-catalog .social-icon {
     filter: grayscale(1);
 }
+/* Botones del catálogo en columna solo en teléfonos */
+@media (max-width: 600px) {
+    .product-buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+    }
+
+    .product-buttons a,
+    .product-buttons button {
+        width: 100%;
+        max-width: 280px;
+        min-width: 0;
+        box-sizing: border-box;
+        white-space: nowrap;
+        justify-content: center;
+    }
+}
