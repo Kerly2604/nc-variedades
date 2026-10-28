@@ -771,27 +771,19 @@ body.image-modal-open {
 }
 
 .logo-image {
+    display: block;
     width: 44px;
     height: 44px;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid #f4a6c1;
-    flex-shrink: 0;
+    flex: 0 0 44px;
 }
 
 @media (max-width: 600px) {
     .logo-image {
         width: 36px;
         height: 36px;
-    }
-}
-/* Evitar el destello del texto alternativo del logo en computadora */
-@media (min-width: 601px) {
-    .logo-image {
-        display: block;
-        width: 44px;
-        height: 44px;
-        flex: 0 0 44px;
-        overflow: hidden;
+        flex-basis: 36px;
     }
 }
