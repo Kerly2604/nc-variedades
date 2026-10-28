@@ -733,15 +733,18 @@ body.image-modal-open {
         width: 100%;
     }
 
-    .product-buttons a,
-    .product-buttons button {
-        width: 100%;
-        max-width: 280px;
-        min-width: 0;
-        box-sizing: border-box;
-        white-space: nowrap;
-        justify-content: center;
-    }
+ .product-buttons a,
+.product-buttons button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 280px;
+    min-width: 0;
+    min-height: 44px;
+    box-sizing: border-box;
+    white-space: nowrap;
+    text-align: center;
 }
 /* Alinear las tarjetas del catálogo en teléfonos */
 @media (max-width: 600px) {
@@ -780,5 +783,15 @@ body.image-modal-open {
     .logo-image {
         width: 36px;
         height: 36px;
+    }
+}
+/* Evitar el destello del texto alternativo del logo en computadora */
+@media (min-width: 601px) {
+    .logo-image {
+        display: block;
+        width: 44px;
+        height: 44px;
+        flex: 0 0 44px;
+        overflow: hidden;
     }
 }
