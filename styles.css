@@ -791,3 +791,21 @@ body.image-modal-open {
     font-size: 42px;
     cursor: pointer;
 }
+/* Alinear botones de productos solo en teléfonos */
+@media (max-width: 600px) {
+    .product-card {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .product-info {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    .product-card .button {
+        margin-top: auto;
+    }
+}

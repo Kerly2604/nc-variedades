@@ -82,11 +82,28 @@
         </div>
     </footer>
 
+
     <!-- AÑO AUTOMÁTICO -->
     <script>
         document.getElementById("current-year").textContent =
             new Date().getFullYear();
     </script>
+
+    <!-- VISOR DEL LOGO EN GRANDE -->
+    <div id="visorLogo" class="visor-logo" onclick="cerrarLogo()">
+        <span class="cerrar-logo">&times;</span>
+        <img src="logo/oficial.png" alt="Logo de NC Variedades ampliado">
+    </div>
+
+  <script>
+    window.abrirLogo = function () {
+        document.getElementById("visorLogo").style.display = "flex";
+    };
+
+    window.cerrarLogo = function () {
+        document.getElementById("visorLogo").style.display = "none";
+    };
+</script>
 
 </body>
 </html>
