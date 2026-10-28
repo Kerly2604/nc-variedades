@@ -659,3 +659,22 @@ body.image-modal-open {
         text-align: center;
     }
 }
+/* Colores originales de los iconos sociales del catálogo */
+.product-buttons .instagram-button svg {
+    color: #E1306C !important;
+    fill: none;
+}
+
+.product-buttons .whatsapp-button svg {
+    color: #25D366 !important;
+    fill: none;
+}
+
+/* Mantener los colores en los textos y botones */
+.product-buttons .instagram-button {
+    color: #E1306C;
+}
+
+.product-buttons .whatsapp-button {
+    color: #25D366;
+}
