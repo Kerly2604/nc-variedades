@@ -743,3 +743,42 @@ body.image-modal-open {
         justify-content: center;
     }
 }
+/* Alinear las tarjetas del catálogo en teléfonos */
+@media (max-width: 600px) {
+    .product-card {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .product-card h3 {
+        line-height: 1.3;
+        min-height: 2.6em;
+    }
+
+    .product-buttons {
+        margin-top: auto;
+    }
+}
+/* Imagen del logo */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-image {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #f4a6c1;
+    flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+    .logo-image {
+        width: 36px;
+        height: 36px;
+    }
+}
