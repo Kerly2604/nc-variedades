@@ -31,7 +31,7 @@ function formatPrice(price) {
 // Obtener automáticamente las categorías del inventario
 function getCategories() {
     const availableProducts = products.filter(
-        product => product.available
+        product => product.available === true
     );
 
     const uniqueCategories = new Map();
@@ -155,23 +155,22 @@ function createProductCard(product) {
         this.alt = `Imagen no disponible: ${product.name}`;
     };
 
-    // Información
+    // Información del producto
     const info = document.createElement("div");
     info.className = "product-info";
 
-    const categoryText = document.createElement("p");
-    categoryText.className = "product-category";
-    categoryText.textContent = product.category || "General";
-
+    // Nombre
     const name = document.createElement("h3");
     name.className = "product-name";
     name.textContent = product.name || "Producto sin nombre";
 
+    // Precio
     const price = document.createElement("p");
     price.className = "product-price";
     price.textContent = formatPrice(product.price);
 
-    info.append(categoryText, name, price);
+    // IMPORTANTE: ya no mostramos la categoría debajo de la imagen
+    info.append(name, price);
 
     // Talla: solo si está definida
     if (product.size && String(product.size).trim()) {
@@ -189,7 +188,7 @@ function createProductCard(product) {
         info.appendChild(unit);
     }
 
-    // Contacto
+    // Botones de contacto
     const buttons = document.createElement("div");
     buttons.className = "product-buttons";
 
