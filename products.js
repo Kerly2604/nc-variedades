@@ -6,7 +6,7 @@ const products = [
         category: "Bebé",
         price: 450,
         unit: "docena",
-        ropa: "1.jpeg",
+        image: "fotos/1.jpeg",
         available: true
     },
     {
@@ -15,7 +15,7 @@ const products = [
         category: "Bebé",
         price: 280,
         unit: "unidad",
-        ropa: "2.jpeg",
+        image: "fotos/2.jpeg",
         available: true
     },
     {
@@ -24,7 +24,7 @@ const products = [
         category: "Bebé",
         price: 280,
         unit: "unidad",
-       ropa: "3.jpeg",
+       image: "fotos/3.jpeg",
         available: true
     },
     {
@@ -33,7 +33,7 @@ const products = [
         category: "Bebé",
         price: 290,
          unit: "set",
-        ropa: "4.jpeg",
+        image: "fotos/4.jpeg",
         available: true
     },
     {
@@ -42,7 +42,7 @@ const products = [
         category: "Niña",
         price: 790,
         size: "12 a 24 meses",
-        ropa: "5.jpeg",
+        image: "fotos/5.jpeg",
         available: true
     },
     {

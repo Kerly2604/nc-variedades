@@ -4,150 +4,270 @@ const categories = document.getElementById("categories");
 const emptyMessage = document.getElementById("empty-message");
 const currentYear = document.getElementById("current-year");
 
+// Configuración de contacto
+const WHATSAPP_NUMBER = "505XXXXXXXX";
+const INSTAGRAM_USER = "MY_USER";
+
+// Normalizar texto para comparar categorías
+function normalizeText(text) {
+    return String(text || "").trim().toLocaleLowerCase("es");
+}
+
 // Formatear precios en córdobas nicaragüenses
 function formatPrice(price) {
+    const amount = Number(price);
+
+    if (!Number.isFinite(amount)) {
+        return "Precio por consultar";
+    }
+
     return new Intl.NumberFormat("es-NI", {
         style: "currency",
         currency: "NIO",
         maximumFractionDigits: 2
-    }).format(price);
+    }).format(amount);
 }
 
-// Mostrar productos del catálogo
-function renderProducts(category = "todos") {
-    const filteredProducts = products.filter(product => {
-        const matchesCategory =
-            category === "todos" ||
-            product.category.toLowerCase() === category.toLowerCase();
+// Obtener automáticamente las categorías del inventario
+function getCategories() {
+    const availableProducts = products.filter(
+        product => product.available
+    );
 
-        return matchesCategory && product.available;
+    const uniqueCategories = new Map();
+
+    availableProducts.forEach(product => {
+        const originalName = String(product.category || "").trim();
+
+        if (!originalName) return;
+
+        const key = normalizeText(originalName);
+
+        if (!uniqueCategories.has(key)) {
+            uniqueCategories.set(key, originalName);
+        }
     });
 
-    productList.innerHTML = "";
-    emptyMessage.hidden = filteredProducts.length > 0;
+    return [...uniqueCategories.entries()]
+        .sort((a, b) => a[1].localeCompare(b[1], "es"))
+        .map(([key, name]) => ({ key, name }));
+}
 
-    filteredProducts.forEach(product => {
-        const card = document.createElement("article");
-        card.className = "product-card";
+// Crear los botones automáticamente
+function renderCategories() {
+    categories.innerHTML = "";
 
-        // Imagen del producto
-        const image = document.createElement("img");
-        image.className = "product-image";
-        image.src = product.image;
-        image.alt = product.name;
-        image.loading = "lazy";
+    const allButton = document.createElement("button");
+    allButton.type = "button";
+    allButton.className = "category-button active";
+    allButton.dataset.category = "todos";
+    allButton.textContent = "Todo";
+    allButton.setAttribute("aria-pressed", "true");
 
-        image.onerror = function () {
-            console.error(
-                `No se pudo cargar la imagen de ${product.name}: ${product.image}`
-            );
+    categories.appendChild(allButton);
 
-            this.alt = `Imagen no disponible: ${product.name}`;
-            this.classList.add("image-not-found");
-        };
+    getCategories().forEach(category => {
+        const button = document.createElement("button");
 
-        // Información del producto
-        const info = document.createElement("div");
-        info.className = "product-info";
+        button.type = "button";
+        button.className = "category-button";
+        button.dataset.category = category.key;
+        button.textContent = category.name;
+        button.setAttribute("aria-pressed", "false");
 
-        const categoryText = document.createElement("p");
-        categoryText.className = "product-category";
-        categoryText.textContent = product.category;
+        categories.appendChild(button);
+    });
+}
 
-        const name = document.createElement("h3");
-        name.className = "product-name";
-        name.textContent = product.name;
+// Crear enlace de WhatsApp
+function createWhatsAppButton(product) {
+    const whatsapp = document.createElement("a");
 
-        const price = document.createElement("p");
-        price.className = "product-price";
-        price.textContent = formatPrice(product.price);
+    whatsapp.className = "product-button whatsapp-button";
+    whatsapp.textContent = "WhatsApp";
 
-        info.append(categoryText, name, price);
+    const message =
+        `Hola, estoy interesado/a en ${product.name} de NC Variedades. ¿Está disponible?`;
 
-        // Mostrar talla únicamente cuando exista
-        if (product.size) {
-            const size = document.createElement("p");
-            size.className = "product-size";
-            size.textContent = `Tallas: ${product.size}`;
-            info.appendChild(size);
-        }
-
-        // Mostrar presentación si el producto la tiene
-        if (product.unit) {
-            const unit = document.createElement("p");
-            unit.className = "product-unit";
-            unit.textContent = `Presentación: ${product.unit}`;
-            info.appendChild(unit);
-        }
-
-        // Botones de contacto
-        const buttons = document.createElement("div");
-        buttons.className = "product-buttons";
-
-        // WhatsApp
-        const whatsapp = document.createElement("a");
-        whatsapp.className = "product-button whatsapp-button";
-        whatsapp.textContent = "WhatsApp";
-
-        const whatsappNumber = "505XXXXXXXX";
-        const message =
-            `Hola, estoy interesado/a en ${product.name} de NC Variedades. ¿Está disponible?`;
-
+    if (WHATSAPP_NUMBER !== "505XXXXXXXX") {
         whatsapp.href =
-            `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+            `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
         whatsapp.target = "_blank";
         whatsapp.rel = "noopener noreferrer";
+    } else {
+        whatsapp.href = "#";
+        whatsapp.title = "Configurá tu número de WhatsApp en app.js";
 
-        // Instagram
-        const instagram = document.createElement("a");
-        instagram.className = "product-button instagram-button";
-        instagram.textContent = "Instagram";
+        whatsapp.addEventListener("click", event => {
+            event.preventDefault();
+            alert("Agregá tu número de WhatsApp en la configuración de app.js.");
+        });
+    }
 
-        const instagramUser = "MY_USER";
+    return whatsapp;
+}
+
+// Crear enlace de Instagram
+function createInstagramButton() {
+    const instagram = document.createElement("a");
+
+    instagram.className = "product-button instagram-button";
+    instagram.textContent = "Instagram";
+
+    if (INSTAGRAM_USER !== "MY_USER") {
         instagram.href =
-            `https://www.instagram.com/${instagramUser}/`;
+            `https://www.instagram.com/${INSTAGRAM_USER}/`;
 
         instagram.target = "_blank";
         instagram.rel = "noopener noreferrer";
+    } else {
+        instagram.href = "#";
+        instagram.title = "Configurá tu usuario de Instagram en app.js";
 
-        buttons.append(whatsapp, instagram);
-        info.appendChild(buttons);
+        instagram.addEventListener("click", event => {
+            event.preventDefault();
+            alert("Agregá tu usuario de Instagram en la configuración de app.js.");
+        });
+    }
 
-        // Agregar tarjeta al catálogo
-        card.append(image, info);
-        productList.appendChild(card);
+    return instagram;
+}
+
+// Crear una tarjeta de producto
+function createProductCard(product) {
+    const card = document.createElement("article");
+    card.className = "product-card";
+
+    // Imagen
+    const image = document.createElement("img");
+    image.className = "product-image";
+    image.src = product.image || "";
+    image.alt = product.name || "Producto de NC Variedades";
+    image.loading = "lazy";
+
+    image.onerror = function () {
+        console.error(
+            `No se pudo cargar la imagen de "${product.name}". Ruta: ${product.image}`
+        );
+
+        this.classList.add("image-not-found");
+        this.alt = `Imagen no disponible: ${product.name}`;
+    };
+
+    // Información
+    const info = document.createElement("div");
+    info.className = "product-info";
+
+    const categoryText = document.createElement("p");
+    categoryText.className = "product-category";
+    categoryText.textContent = product.category || "General";
+
+    const name = document.createElement("h3");
+    name.className = "product-name";
+    name.textContent = product.name || "Producto sin nombre";
+
+    const price = document.createElement("p");
+    price.className = "product-price";
+    price.textContent = formatPrice(product.price);
+
+    info.append(categoryText, name, price);
+
+    // Talla: solo si está definida
+    if (product.size && String(product.size).trim()) {
+        const size = document.createElement("p");
+        size.className = "product-size";
+        size.textContent = `Tallas: ${product.size}`;
+        info.appendChild(size);
+    }
+
+    // Unidad o presentación: solo si está definida
+    if (product.unit && String(product.unit).trim()) {
+        const unit = document.createElement("p");
+        unit.className = "product-unit";
+        unit.textContent = `Presentación: ${product.unit}`;
+        info.appendChild(unit);
+    }
+
+    // Contacto
+    const buttons = document.createElement("div");
+    buttons.className = "product-buttons";
+
+    buttons.append(
+        createWhatsAppButton(product),
+        createInstagramButton()
+    );
+
+    info.appendChild(buttons);
+    card.append(image, info);
+
+    return card;
+}
+
+// Mostrar productos por categoría
+function renderProducts(category = "todos") {
+    const selectedCategory = normalizeText(category);
+
+    const filteredProducts = products.filter(product => {
+        const isAvailable = product.available === true;
+
+        const matchesCategory =
+            selectedCategory === "todos" ||
+            normalizeText(product.category) === selectedCategory;
+
+        return isAvailable && matchesCategory;
+    });
+
+    productList.innerHTML = "";
+
+    if (emptyMessage) {
+        emptyMessage.hidden = filteredProducts.length > 0;
+    }
+
+    filteredProducts.forEach(product => {
+        productList.appendChild(createProductCard(product));
     });
 }
 
-// Filtros de categorías
+// Manejar filtros y actualizar el botón activo
 categories.addEventListener("click", function (event) {
     const button = event.target.closest("[data-category]");
 
-    if (!button) return;
+    if (!button || !categories.contains(button)) return;
 
-    document.querySelectorAll(".category-button").forEach(item => {
-        item.classList.remove("active");
+    categories.querySelectorAll(".category-button").forEach(item => {
+        const isActive = item === button;
+
+        item.classList.toggle("active", isActive);
+        item.setAttribute("aria-pressed", String(isActive));
     });
 
-    button.classList.add("active");
     renderProducts(button.dataset.category);
 });
 
-// Actualizar año del pie de página
+// Año automático
 if (currentYear) {
     currentYear.textContent = new Date().getFullYear();
 }
 
-// Comprobar que los productos estén cargados
-if (typeof products !== "undefined" && Array.isArray(products)) {
+// Iniciar catálogo
+if (
+    productList &&
+    categories &&
+    emptyMessage &&
+    typeof products !== "undefined" &&
+    Array.isArray(products)
+) {
+    renderCategories();
     renderProducts();
 } else {
-    console.error("No se encontró el inventario de products.js.");
+    console.error(
+        "No se pudo iniciar el catálogo. Revisá catalogo.html y products.js."
+    );
 
     if (emptyMessage) {
         emptyMessage.hidden = false;
         emptyMessage.textContent =
-            "No se pudieron cargar los productos. Recargá la página.";
+            "No se pudieron cargar los productos. Intentá recargar la página.";
     }
 }
