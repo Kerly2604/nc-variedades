@@ -66,10 +66,25 @@ button {
 }
 
 .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     font-size: 1.25rem;
     font-weight: 800;
     letter-spacing: 1px;
     white-space: nowrap;
+}
+
+.logo-image {
+    display: block;
+    width: 44px;
+    height: 44px;
+    flex: 0 0 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #f4a6c1;
+    color: transparent;
+    font-size: 0;
 }
 
 .navigation {
@@ -225,10 +240,10 @@ button {
 }
 
 .product-image {
+    display: block;
     width: 100%;
     aspect-ratio: 3 / 4;
     object-fit: cover;
-    display: block;
     background-color: var(--marfil);
 }
 
@@ -275,7 +290,9 @@ button {
     background-color: #444444;
 }
 
-/* BOTONES DEL CATÁLOGO: MISMO ESTILO QUE CONTACTO */
+/* ========================================
+   BOTONES DEL CATÁLOGO
+======================================== */
 
 .product-buttons {
     display: grid;
@@ -311,14 +328,28 @@ button {
     box-shadow: 0 7px 16px rgba(0, 0, 0, 0.20);
 }
 
-
-/* Los logos del catálogo ahora los genera app.js con SVG */
+/* Los logos del catálogo se generan con SVG */
 .product-buttons .whatsapp-button::before,
 .product-buttons .instagram-button::before {
     content: none;
     display: none;
 }
 
+.product-buttons .instagram-button {
+    color: #fff !important;
+}
+
+.product-buttons .instagram-button svg {
+    color: #E1306C !important;
+}
+
+.product-buttons .whatsapp-button {
+    color: #fff !important;
+}
+
+.product-buttons .whatsapp-button svg {
+    color: #25D366 !important;
+}
 
 #empty-message {
     margin-top: 24px;
@@ -408,6 +439,7 @@ button {
 
 .contact-buttons .button-catalog .social-icon {
     color: var(--blanco);
+    filter: grayscale(1);
 }
 
 .contact-buttons .button:hover {
@@ -433,7 +465,7 @@ button {
 }
 
 /* ========================================
-   ADAPTACIÓN A TABLET Y MÓVIL
+   ADAPTACIÓN A TABLET
 ======================================== */
 
 @media (max-width: 900px) {
@@ -454,6 +486,10 @@ button {
     }
 }
 
+/* ========================================
+   ADAPTACIÓN A TELÉFONOS
+======================================== */
+
 @media (max-width: 600px) {
     .header .container {
         justify-content: center;
@@ -462,7 +498,14 @@ button {
 
     .logo {
         width: 100%;
+        justify-content: center;
         text-align: center;
+    }
+
+    .logo-image {
+        width: 36px;
+        height: 36px;
+        flex-basis: 36px;
     }
 
     .navigation {
@@ -520,13 +563,111 @@ button {
 
     .contact-buttons {
         flex-direction: column;
-        align-items: stretch;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
     }
 
     .contact-buttons .button {
-        width: 100%;
+        display: inline-flex;
+        flex-direction: row;
+        flex: 0 0 auto;
+        align-items: center;
+        justify-content: center;
+        align-self: center;
+        width: auto;
+        min-width: 140px;
+        max-width: 190px;
+        padding: 10px 12px;
+        gap: 7px;
+        font-size: 13px;
+        line-height: 1.2;
+        white-space: nowrap;
+        overflow: visible;
+        box-sizing: border-box;
+    }
+
+    .contact-buttons .social-icon {
+        display: inline-flex;
+        flex: 0 0 auto;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .contact-buttons .social-icon svg {
+        display: block;
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+    }
+
+    /* Botones de contacto y catálogo */
+    .contacto-buttons,
+    .contact-buttons,
+    .social-buttons,
+    .product-buttons {
+        max-width: 100%;
         min-width: 0;
         box-sizing: border-box;
+    }
+
+    .contacto-buttons a,
+    .contact-buttons a,
+    .social-buttons a,
+    .product-buttons a,
+    .contacto-buttons button,
+    .contact-buttons button,
+    .social-buttons button,
+    .product-buttons button {
+        gap: 6px;
+        box-sizing: border-box;
+        text-align: center;
+    }
+
+    .contacto-buttons svg,
+    .contact-buttons svg,
+    .social-buttons svg,
+    .product-buttons svg {
+        flex-shrink: 0;
+    }
+
+    /* Botones del catálogo en columna */
+    .product-buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+    }
+
+    .product-buttons a,
+    .product-buttons button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 280px;
+        min-width: 0;
+        min-height: 44px;
+        box-sizing: border-box;
+        white-space: nowrap;
+        text-align: center;
+    }
+
+    /* Alinear las tarjetas del catálogo */
+    .product-card {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .product-card h3 {
+        line-height: 1.3;
+        min-height: 2.6em;
+    }
+
+    .product-buttons {
+        margin-top: auto;
     }
 }
 
@@ -534,7 +675,6 @@ button {
    IMÁGENES AMPLIADAS DEL CATÁLOGO
 ======================================== */
 
-/* Indicar que las fotos se pueden ampliar */
 .product-image-zoom {
     cursor: zoom-in;
     transition: transform 0.2s ease;
@@ -567,12 +707,12 @@ button {
     display: flex;
 }
 
-/* Evitar que la página se desplace mientras se ve la foto */
+/* Evitar desplazamiento al ampliar una imagen */
 body.image-modal-open {
     overflow: hidden;
 }
 
-/* Imagen ampliada, sin deformaciones */
+/* Imagen ampliada sin deformaciones */
 .image-modal-content {
     display: block;
     width: auto;
@@ -617,173 +757,4 @@ body.image-modal-open {
 
 .image-modal-close:hover {
     background: rgba(255, 255, 255, 0.25);
-}
-
-/* Ajustes para los botones de contacto en teléfonos */
-@media (max-width: 600px) {
-    .contacto-buttons,
-    .contact-buttons,
-    .social-buttons,
-    .product-buttons {
-        width: 100%;
-        max-width: 100%;
-        min-width: 0;
-        box-sizing: border-box;
-    }
-
-    .contacto-buttons a,
-    .contact-buttons a,
-    .social-buttons a,
-    .product-buttons a,
-    .contacto-buttons button,
-    .contact-buttons button,
-    .social-buttons button,
-    .product-buttons button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 6px;
-        width: 100%;
-        max-width: 100%;
-        min-width: 0;
-        padding: 10px 8px;
-        box-sizing: border-box;
-        white-space: normal;
-        overflow-wrap: anywhere;
-        text-align: center;
-    }
-
-    .contacto-buttons svg,
-    .contact-buttons svg,
-    .social-buttons svg,
-    .product-buttons svg {
-        flex-shrink: 0;
-    }
-}
-/* Botones compactos para teléfonos */
-@media (max-width: 600px) {
-    .contact-buttons {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-        width: 100%;
-    }
-
-    .contact-buttons .button {
-        display: inline-flex;
-        flex-direction: row;
-        flex: 0 0 auto;
-        align-items: center;
-        justify-content: center;
-        align-self: center;
-        width: auto;
-        min-width: 140px;
-        max-width: 190px;
-        padding: 10px 12px;
-        gap: 7px;
-        font-size: 13px;
-        line-height: 1.2;
-        white-space: nowrap;
-        overflow: visible;
-        box-sizing: border-box;
-    }
-
-    .contact-buttons .social-icon {
-        display: inline-flex;
-        flex: 0 0 auto;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .contact-buttons .social-icon svg {
-        display: block;
-        width: 16px;
-        height: 16px;
-        flex-shrink: 0;
-    }
-}
-/* Instagram: logo rosado y texto blanco */
-.product-buttons .instagram-button {
-    color: #fff !important;
-}
-
-.product-buttons .instagram-button svg {
-    color: #E1306C !important;
-}
-
-/* WhatsApp: logo verde y texto blanco */
-.product-buttons .whatsapp-button {
-    color: #fff !important;
-}
-
-.product-buttons .whatsapp-button svg {
-    color: #25D366 !important;
-}
-.button-catalog .social-icon {
-    filter: grayscale(1);
-}
-/* Botones del catálogo en columna solo en teléfonos */
-@media (max-width: 600px) {
-    .product-buttons {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 12px;
-        width: 100%;
-    }
-
- .product-buttons a,
-.product-buttons button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    max-width: 280px;
-    min-width: 0;
-    min-height: 44px;
-    box-sizing: border-box;
-    white-space: nowrap;
-    text-align: center;
-}
-/* Alinear las tarjetas del catálogo en teléfonos */
-@media (max-width: 600px) {
-    .product-card {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-    }
-
-    .product-card h3 {
-        line-height: 1.3;
-        min-height: 2.6em;
-    }
-
-    .product-buttons {
-        margin-top: auto;
-    }
-}
-/* Imagen del logo */
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.logo-image {
-    display: block;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #f4a6c1;
-    flex: 0 0 44px;
-}
-
-@media (max-width: 600px) {
-    .logo-image {
-        width: 36px;
-        height: 36px;
-        flex-basis: 36px;
-    }
 }
