@@ -104,6 +104,19 @@
         document.getElementById("visorLogo").style.display = "none";
     };
 </script>
+<!-- AUDIO -->
+<audio id="musica-fondo" autoplay loop>
+    <source src="audio/yo quiero.mp3" type="audio/mpeg">
+</audio>
 
+<script>
+const musica = document.getElementById("musica-fondo");
+
+musica.volume = 0.25;
+
+musica.play().catch(() => {
+    console.log("El navegador requiere una interacción para reproducir audio.");
+});
+</script>
 </body>
 </html>
