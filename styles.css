@@ -809,3 +809,48 @@ body.image-modal-open {
         margin-top: auto;
     }
 }
+
+/* ========================================
+   ALINEAR BOTONES DE PRODUCTOS EN LAPTOP
+   Y PANTALLAS GRANDES
+======================================== */
+
+@media (min-width: 901px) {
+
+    /* Todas las tarjetas ocupan la misma altura
+       dentro de cada fila del catálogo */
+    .product-card {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    /* El contenido crece para mantener
+       los botones abajo */
+    .product-info {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-width: 0;
+    }
+
+    /* Los nombres largos pueden ocupar
+       varias líneas sin desalinear los botones */
+    .product-name {
+        overflow-wrap: anywhere;
+    }
+
+    /* Mantener los botones al fondo de cada tarjeta */
+    .product-info > .product-button,
+    .product-info > .product-buttons,
+    .product-info > .button {
+        margin-top: auto;
+    }
+
+    /* Si hay dos botones, mantenerlos juntos
+       y alineados en la parte inferior */
+    .product-info > .product-buttons {
+        width: 100%;
+    }
+
+}
